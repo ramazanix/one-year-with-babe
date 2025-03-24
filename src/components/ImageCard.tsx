@@ -13,15 +13,17 @@ export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
 
   const variants = {
     initial: {
-      rotateY: "90deg",
-      rotateZ: "10deg",
+      width: idx % 2 === 0 ? 0 : "100%",
+      height: idx % 2 === 0 ? "100%" : 0,
+      borderWidth: 0,
     },
     animate: (idx: number) => ({
-      rotateY: 0,
-      rotateZ: 0,
+      width: "100%",
+      height: "100%",
+      borderWidth: 1,
       transition: {
-        type: "spring",
-        duration: 0.6,
+        ease: [0.19, 1, 0.22, 1],
+        duration: 1.2,
         delay: order.indexOf(idx + 1) * 0.2 + 0.5,
       },
     }),
