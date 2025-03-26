@@ -9,13 +9,14 @@ interface ImageCardProps {
 }
 
 export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
-  const gridAreas = ["first", "second", "third", "fourth", "fifth", "sixth"];
-
   const variants = {
     initial: {
       width: idx % 2 === 0 ? 0 : "100%",
       height: idx % 2 === 0 ? "100%" : 0,
       borderWidth: 0,
+      top: "50%",
+      left: "50%",
+      translate: "-50% -50%",
     },
     animate: (idx: number) => ({
       width: "100%",
@@ -27,10 +28,15 @@ export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
         delay: order.indexOf(idx + 1) * 0.2 + 0.5,
       },
     }),
+    hover: {
+      scale: 1.02,
+      transition: { ease: [0.19, 1, 0.22, 1], duration: 0.8 },
+    },
   } as Variants;
 
   return (
     <motion.div
+      layout
       custom={idx}
       variants={variants}
       initial="initial"
@@ -43,14 +49,14 @@ export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
             : "card-container__card_low-horizontal"
           : "card-container__card_vertical")
       }
-      style={{ gridArea: gridAreas[idx] }}
+      whileHover="hover"
     >
       <Image
         src={image}
-        width={0}
-        height={0}
+        fill
         alt={`Image ${idx}`}
         className="card-container__card__image"
+        draggable={false}
       />
     </motion.div>
   );
