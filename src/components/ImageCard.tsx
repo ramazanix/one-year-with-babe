@@ -1,26 +1,60 @@
-import React from "react";
-import { motion, Variants } from "motion/react";
+import { RefObject, useRef } from "react";
+import {
+  motion,
+  useAnimationFrame,
+  useMotionValue,
+  useScroll,
+  useTransform,
+  Variants,
+} from "motion/react";
 import Image, { StaticImageData } from "next/image";
+import clsx from "clsx";
 
 interface ImageCardProps {
   idx: number;
   image: StaticImageData;
   order: number[];
+  parentRef: RefObject<HTMLDivElement | null>;
 }
 
-export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
+const MotionImage = motion.create(Image);
+const gridAreas = ["a", "b", "c", "d", "e", "f"];
+
+export const ImageCard: React.FC<ImageCardProps> = ({
+  idx,
+  image,
+  order,
+  parentRef,
+}) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+  const { scrollYProgress } = useScroll({
+    container: parentRef,
+  });
+  const y = useMotionValue(scrollYProgress);
+  const width = useMotionValue(scrollYProgress);
+  const height = useMotionValue(scrollYProgress);
+  const scale = useMotionValue(scrollYProgress);
+  const opacity = useMotionValue(scrollYProgress);
+  const range = [0, 0.1];
+
+  const topVal = useTransform(y.get(), range, [0, 50]);
+  const widthVal = useTransform(width.get(), range, [492, 1920]);
+  const heightVal = useTransform(height.get(), range, [444, 1080]);
+  const scaleVal = useTransform(scale.get(), [0, 0.08, 0.4], [1, 1, 20]);
+  const opacityVal = useTransform(opacity.get(), [0.35, 0.4], [1, 0]);
+
   const variants = {
     initial: {
-      width: idx % 2 === 0 ? 0 : "100%",
-      height: idx % 2 === 0 ? "100%" : 0,
+      width: idx !== 4 ? (idx % 2 === 0 ? 0 : "100%") : 0,
+      height: idx !== 4 ? (idx % 2 === 0 ? "100%" : 0) : `${442 + 2}px`,
       borderWidth: 0,
-      top: "50%",
+      top: idx !== 4 ? "50%" : `${30 + 450 + 6}px`,
       left: "50%",
-      translate: "-50% -50%",
+      translate: idx !== 4 ? "-50% -50%" : "-50% 0%",
     },
     animate: (idx: number) => ({
-      width: "100%",
-      height: "100%",
+      width: idx !== 4 ? "100%" : `${498 - 4}px`,
+      height: idx !== 4 ? "100%" : `${442 + 2}px`,
       borderWidth: 1,
       transition: {
         ease: [0.19, 1, 0.22, 1],
@@ -34,24 +68,44 @@ export const ImageCard: React.FC<ImageCardProps> = ({ idx, image, order }) => {
     },
   } as Variants;
 
+  useAnimationFrame(() => {
+    if (!ref.current || idx !== 4) return;
+
+    if (scrollYProgress.getPrevious()! >= 0.5) {
+      ref.current.style.display = "none";
+    } else {
+      ref.current.style.display = "block";
+      ref.current.style.width = `${widthVal.get()}px`;
+      ref.current.style.height = `${heightVal.get()}px`;
+      ref.current.style.transform = `scale(${scaleVal
+        .get()
+        .toFixed(2)}) translate(0%, -${topVal.get().toFixed(3)}%)`;
+      ref.current.style.opacity = `${opacityVal.get().toFixed(2)}`;
+    }
+  });
+
   return (
     <motion.div
       layout
+      ref={ref}
       custom={idx}
       variants={variants}
       initial="initial"
       animate="animate"
-      className={
-        "card-container__card " +
-        (idx % 2 === 0
+      className={clsx(
+        "card-container__card",
+        idx % 2 === 0
           ? idx !== 4
             ? "card-container__card_horizontal"
             : "card-container__card_low-horizontal"
-          : "card-container__card_vertical")
-      }
-      whileHover="hover"
+          : "card-container__card_vertical"
+      )}
+      // whileHover={"hover"}
+      style={{
+        gridArea: idx !== 4 ? gridAreas[idx] : undefined,
+      }}
     >
-      <Image
+      <MotionImage
         src={image}
         fill
         alt={`Image ${idx}`}
