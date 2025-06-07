@@ -15,6 +15,7 @@ interface ImageCardProps {
   image: StaticImageData;
   order: number[];
   parentRef: RefObject<HTMLDivElement | null>;
+  isPlayerClicked: boolean;
 }
 
 const MotionImage = motion.create(Image);
@@ -25,8 +26,10 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   image,
   order,
   parentRef,
+  isPlayerClicked,
 }) => {
   const ref = useRef<HTMLDivElement | null>(null);
+
   const { scrollYProgress } = useScroll({
     container: parentRef,
   });
@@ -69,9 +72,19 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   } as Variants;
 
   useAnimationFrame(() => {
-    if (!ref.current || idx !== 4) return;
+    if (!ref.current || (idx === 4 && !isPlayerClicked)) {
+      ref.current!.style.display = "none";
+      return;
+    }
 
-    if (scrollYProgress.getPrevious()! >= 0.5) {
+    if (!ref.current || idx !== 4 || scrollYProgress.get() > 0.45) {
+      if (ref.current && idx === 4 && ref.current?.style.display !== "none") {
+        ref.current.style.display = "none";
+      }
+      return;
+    }
+
+    if (scrollYProgress.get()! >= 0.4) {
       ref.current.style.display = "none";
     } else {
       ref.current.style.display = "block";
@@ -91,7 +104,7 @@ export const ImageCard: React.FC<ImageCardProps> = ({
       custom={idx}
       variants={variants}
       initial="initial"
-      animate="animate"
+      animate={isPlayerClicked ? "animate" : {}}
       className={clsx(
         "card-container__card",
         idx % 2 === 0
@@ -100,7 +113,6 @@ export const ImageCard: React.FC<ImageCardProps> = ({
             : "card-container__card_low-horizontal"
           : "card-container__card_vertical"
       )}
-      // whileHover={"hover"}
       style={{
         gridArea: idx !== 4 ? gridAreas[idx] : undefined,
       }}

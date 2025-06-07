@@ -1,7 +1,7 @@
 "use client";
 
-import { ImageCard } from "@/components";
-import { useEffect, useRef } from "react";
+import { Greetings, ImageCard, Player } from "@/components";
+import { useEffect, useRef, useState } from "react";
 import ReactLenis, { LenisRef } from "lenis/react";
 import { cancelFrame, frame, motion } from "motion/react";
 import { verticalImages, horizontalImages } from "@/images";
@@ -9,6 +9,7 @@ import { verticalImages, horizontalImages } from "@/images";
 export default function Home() {
   const lenisRef = useRef<LenisRef>(null);
   const gridRef = useRef<HTMLDivElement>(null);
+  const [isPlayerClicked, setIsPlayerClicked] = useState(false);
 
   const images = [
     horizontalImages[0],
@@ -49,13 +50,18 @@ export default function Home() {
               image={image}
               order={order}
               parentRef={gridRef}
+              isPlayerClicked={isPlayerClicked}
             />
           ))}
         </motion.div>
       </div>
       <div className="section-second">
-        <h1 style={{}}>Nihao wo de xiao yangguang!</h1>
+        <Greetings />
       </div>
+      <Player
+        isClicked={isPlayerClicked}
+        setIsClicked={setIsPlayerClicked}
+      />
     </ReactLenis>
   );
 }
