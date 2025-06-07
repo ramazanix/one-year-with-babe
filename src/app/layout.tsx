@@ -13,7 +13,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="zh"
+      translate="no"
+    >
       <body className={chineseFont.className}>{children}</body>
     </html>
   );

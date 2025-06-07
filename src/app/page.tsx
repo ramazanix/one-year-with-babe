@@ -1,6 +1,6 @@
 "use client";
 
-import { Greetings, ImageCard, Player } from "@/components";
+import { Greetings, ImageCard, Photos, Player } from "@/components";
 import { useEffect, useRef, useState } from "react";
 import ReactLenis, { LenisRef } from "lenis/react";
 import { cancelFrame, frame, motion } from "motion/react";
@@ -22,6 +22,7 @@ export default function Home() {
   const order = [2, 4, 6, 3, 5, 1];
 
   useEffect(() => {
+    const hintController = new AbortController();
     function update(data: { timestamp: number }) {
       const time = data.timestamp;
       lenisRef.current?.lenis?.raf(time);
@@ -29,7 +30,28 @@ export default function Home() {
 
     frame.update(update, true);
 
-    return () => cancelFrame(update);
+    const onVisible = () => {
+      document.querySelector(".player-button")?.classList.add("show-hint");
+    };
+
+    if (document.visibilityState === "visible") {
+      onVisible();
+    } else {
+      document.addEventListener(
+        "visibilitychange",
+        () => {
+          if (document.visibilityState === "visible") {
+            onVisible();
+          }
+        },
+        { once: true, signal: hintController.signal }
+      );
+    }
+
+    return () => {
+      cancelFrame(update);
+      hintController.abort();
+    };
   }, []);
 
   return (
@@ -57,6 +79,7 @@ export default function Home() {
       </div>
       <div className="section-second">
         <Greetings />
+        <Photos />
       </div>
       <Player
         isClicked={isPlayerClicked}

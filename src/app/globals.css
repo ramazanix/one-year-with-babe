@@ -46,10 +46,13 @@ body {
   height: 2800vh;
   background-color: var(--primary-color);
   padding-top: 600vh;
+  border-top: 1px solid red;
 }
 
 .greetings-wrapper {
   position: relative;
+  min-height: 2500px;
+  margin-bottom: 350px;
 }
 
 .greetings {
@@ -148,14 +151,34 @@ body {
     transform-origin: center;
     rotate: 290deg;
     opacity: 0;
+    pointer-events: none;
+  }
+
+  &.show-hint::before {
+    content: "";
+    background-image: url("/arrow.png");
+    width: 75px;
+    height: 75px;
+    position: absolute;
+    top: 52px;
+    right: 15px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    transform-origin: center;
+    rotate: 290deg;
+    opacity: 0;
     animation: fadeIn 1.3s 1s ease forwards;
     pointer-events: none;
+  }
+
+  &.show-hint::after {
+    animation: fadeIn 1.3s 1.5s ease forwards;
   }
 
   &::after {
     content: "Click me!)";
     text-wrap: nowrap;
-    font-weight: 500;
+    font-weight: 600;
     color: var(--primary-color);
     font-family: "Edu NSW ACT Cursive", cursive;
     font-optical-sizing: auto;
@@ -165,7 +188,6 @@ body {
     right: 60px;
     font-size: 1.5rem;
     opacity: 0;
-    animation: fadeIn 1.3s 1.5s ease forwards;
     pointer-events: none;
   }
 
@@ -195,6 +217,27 @@ body {
     color: #000000;
     background-color: var(--primary-color);
   }
+}
+
+.gallery-wrapper {
+  columns: 3;
+  column-gap: 80px;
+  margin: 0 50px;
+}
+
+.gallery-image-wrapper {
+  position: relative;
+  height: 700px;
+  border-radius: 10px;
+  break-inside: avoid;
+  margin-bottom: 80px;
+  box-shadow: var(--primary-color) 0 0 0 4px, var(--second-color) 0 0 0 10px,
+    var(--second-color) 0 10px 0 10px, var(--second-color) 10px 10px 0 10px;
+}
+
+.gallery-image {
+  object-fit: cover;
+  border-radius: inherit;
 }
 
 @keyframes fadeIn {

@@ -1,4 +1,5 @@
-import verticalImages from "./vertical/index";
-import horizontalImages from "./horizontal/index";
+import verticalImages from "./vertical";
+import horizontalImages from "./horizontal";
+import galleryImages from "./gallery";
 
-export { verticalImages, horizontalImages };
+export { verticalImages, horizontalImages, galleryImages };
