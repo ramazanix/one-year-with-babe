@@ -21,10 +21,19 @@ export const Player: React.FC<{
     if (!audio) return;
 
     const audioController = new AbortController();
+
+    const handleEndAndPause = () => setIsPlaying(false);
+
+    audio.addEventListener("ended", handleEndAndPause, {
+      signal: audioController.signal,
+    });
+    audio.addEventListener("pause", handleEndAndPause, {
+      signal: audioController.signal,
+    });
     audio.addEventListener(
-      "ended",
+      "play",
       () => {
-        setIsPlaying(false);
+        setIsPlaying(true);
       },
       { signal: audioController.signal }
     );

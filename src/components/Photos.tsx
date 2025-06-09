@@ -1,22 +1,19 @@
 import { galleryImages } from "@/images";
-import Image from "next/image";
+import { Photo } from ".";
 
 export const Photos: React.FC = () => {
   return (
-    <div className="gallery-wrapper">
-      {galleryImages.map((image) => (
-        <div
-          key={image.src}
-          className={"gallery-image-wrapper"}
-        >
-          <Image
-            className="gallery-image"
+    <>
+      <h1 className="gallery-title">爱的画廊</h1>
+      <div className="gallery-wrapper">
+        {galleryImages.map((image, idx) => (
+          <Photo
             src={image.src}
-            alt="Love u"
-            fill
+            key={image.src}
+            idx={idx}
           />
-        </div>
-      ))}
-    </div>
+        ))}
+      </div>
+    </>
   );
 };

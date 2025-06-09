@@ -225,12 +225,34 @@ body {
   margin: 0 50px;
 }
 
+.gallery-title {
+  text-align: center;
+  color: #f34545;
+  font-size: 8rem;
+  margin-bottom: 150px;
+  font-weight: 400;
+  text-shadow: 5px 5px 0 #ffffff, 10px 10px 0 #0e0d0c25;
+}
+
 .gallery-image-wrapper {
   position: relative;
   height: 700px;
   border-radius: 10px;
   break-inside: avoid;
   margin-bottom: 80px;
+}
+
+.gallery-image-wrapper--first {
+  box-shadow: var(--primary-color) 0 0 0 4px, var(--second-color) 0 0 0 10px,
+    var(--second-color) 0 10px 0 10px, var(--second-color) -10px 10px 0 10px;
+}
+
+.gallery-image-wrapper--second {
+  box-shadow: var(--primary-color) 0 0 0 4px, var(--second-color) 0 0 0 10px,
+    var(--second-color) 0 10px 0 10px;
+}
+
+.gallery-image-wrapper--third {
   box-shadow: var(--primary-color) 0 0 0 4px, var(--second-color) 0 0 0 10px,
     var(--second-color) 0 10px 0 10px, var(--second-color) 10px 10px 0 10px;
 }

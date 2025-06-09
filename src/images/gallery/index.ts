@@ -10,6 +10,12 @@ import Ninth from "./9.jpg";
 import Tenth from "./10.jpg";
 import Eleventh from "./11.jpg";
 import Twelfth from "./12.jpg";
+import Thirteenth from "./13.jpg";
+import Fourteenth from "./14.jpg";
+import Fifteenth from "./15.jpg";
+import Sixteenth from "./16.jpg";
+import Seventeenth from "./17.jpg";
+import Eighteenth from "./18.jpg";
 
 const galleryImages = [
   First,
@@ -24,6 +30,12 @@ const galleryImages = [
   Tenth,
   Eleventh,
   Twelfth,
+  Thirteenth,
+  Fourteenth,
+  Fifteenth,
+  Sixteenth,
+  Seventeenth,
+  Eighteenth,
 ];
 
 export default galleryImages;
