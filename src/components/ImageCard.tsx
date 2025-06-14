@@ -43,8 +43,8 @@ export const ImageCard: React.FC<ImageCardProps> = ({
   const topVal = useTransform(y.get(), range, [0, 50]);
   const widthVal = useTransform(width.get(), range, [492, 1920]);
   const heightVal = useTransform(height.get(), range, [444, 1080]);
-  const scaleVal = useTransform(scale.get(), [0, 0.08, 0.4], [1, 1, 20]);
-  const opacityVal = useTransform(opacity.get(), [0.35, 0.4], [1, 0]);
+  const scaleVal = useTransform(scale.get(), [0, 0.08, 0.6], [1, 1, 20]);
+  const opacityVal = useTransform(opacity.get(), [0.5, 0.6], [1, 0]);
 
   const variants = {
     initial: {
@@ -77,14 +77,14 @@ export const ImageCard: React.FC<ImageCardProps> = ({
       return;
     }
 
-    if (!ref.current || idx !== 4 || scrollYProgress.get() > 0.45) {
+    if (!ref.current || idx !== 4 || scrollYProgress.get() > 0.65) {
       if (ref.current && idx === 4 && ref.current?.style.display !== "none") {
         ref.current.style.display = "none";
       }
       return;
     }
 
-    if (scrollYProgress.get()! >= 0.4) {
+    if (scrollYProgress.get()! >= 0.6) {
       ref.current.style.display = "none";
     } else {
       ref.current.style.display = "block";

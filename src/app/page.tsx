@@ -1,6 +1,13 @@
 "use client";
 
-import { Greetings, ImageCard, Photos, Player } from "@/components";
+import {
+  Greetings,
+  ImageCard,
+  Photos,
+  Player,
+  Ribbons,
+  WarmWords,
+} from "@/components";
 import { useEffect, useRef, useState } from "react";
 import ReactLenis, { LenisRef } from "lenis/react";
 import { cancelFrame, frame, motion } from "motion/react";
@@ -80,6 +87,8 @@ export default function Home() {
       <div className="section-second">
         <Greetings />
         <Photos />
+        <Ribbons />
+        <WarmWords />
       </div>
       <Player
         isClicked={isPlayerClicked}

@@ -45,9 +45,9 @@ export const Photo: React.FC<{ src: string; idx: number }> = ({ src, idx }) => {
       custom={idx}
       className={clsx(
         "gallery-image-wrapper",
-        idx <= 5 && "gallery-image-wrapper--first",
-        5 < idx && idx <= 11 && "gallery-image-wrapper--second",
-        idx > 11 && "gallery-image-wrapper--third"
+        idx <= 6 && "gallery-image-wrapper--first",
+        6 < idx && idx <= 13 && "gallery-image-wrapper--second",
+        idx > 13 && "gallery-image-wrapper--third"
       )}
     >
       <Image

@@ -16,6 +16,9 @@ import Fifteenth from "./15.jpg";
 import Sixteenth from "./16.jpg";
 import Seventeenth from "./17.jpg";
 import Eighteenth from "./18.jpg";
+import Nineteenth from "./19.jpg";
+import Twentieth from "./20.jpg";
+import TwentyFirst from "./21.jpg";
 
 const galleryImages = [
   First,
@@ -36,6 +39,9 @@ const galleryImages = [
   Sixteenth,
   Seventeenth,
   Eighteenth,
+  Nineteenth,
+  Twentieth,
+  TwentyFirst,
 ];
 
 export default galleryImages;
