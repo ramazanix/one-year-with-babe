@@ -227,7 +227,7 @@ body {
   columns: 3;
   column-gap: 80px;
   margin: 0 50px;
-  margin-bottom: 250px;
+  margin-bottom: 200px;
 }
 
 .gallery-title {
@@ -237,6 +237,7 @@ body {
   margin-bottom: 150px;
   font-weight: 400;
   text-shadow: 5px 5px 0 #ffffff, 10px 10px 0 #0e0d0c25;
+  user-select: none;
 }
 
 .gallery-image-wrapper {
@@ -245,6 +246,8 @@ body {
   border-radius: 10px;
   break-inside: avoid;
   margin-bottom: 80px;
+  pointer-events: none;
+  user-select: none;
 }
 
 .gallery-image-wrapper--first {
@@ -293,6 +296,7 @@ body {
 }
 
 .ribbon-content {
+  user-select: none;
   & > span {
     display: inline-block;
     margin-top: 22px;
@@ -310,11 +314,53 @@ body {
 }
 
 .warm-words {
+  position: relative;
   color: #f34545;
   padding: 150px 0;
   text-align: center;
+  user-select: none;
+  width: 100vw;
+  text-shadow: 0 4px 0 #ffffff, 0 8px 0 #0e0d0c25;
   font-size: 3rem;
-  text-shadow: 0 4px 0 0 #ffffff, 0 8px 0 0 #0e0d0c25;
+
+  &::before {
+    content: "";
+    background-image: url("/anime-bymzik.png");
+    background-size: cover;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 20%;
+    translate: -50% -50%;
+    border-radius: 20px;
+    box-shadow: var(--primary-color) 0 0 0 2px, var(--secondary-color) 0 0 0 5px,
+      var(--secondary-color) 0 5px 0 5px, var(--secondary-color) -5px 5px 0 5px;
+    filter: blur(2px);
+    transition: filter 0.6s cubic-bezier(0.39, 0.74, 0.61, 0.86);
+  }
+
+  &::after {
+    content: "";
+    background-image: url("/anime-jiaru.png");
+    background-size: cover;
+    width: 500px;
+    height: 400px;
+    position: absolute;
+    top: 50%;
+    left: 80%;
+    translate: -50% -50%;
+    border-radius: 20px;
+    box-shadow: var(--primary-color) 0 0 0 2px, var(--secondary-color) 0 0 0 5px,
+      var(--secondary-color) 0 5px 0 5px, var(--secondary-color) 5px 5px 0 5px;
+    filter: blur(2px);
+    transition: filter 0.6s cubic-bezier(0.39, 0.74, 0.61, 0.86);
+  }
+
+  &:hover::before,
+  &:hover::after {
+    filter: blur(0px);
+  }
 }
 
 @keyframes fadeIn {
